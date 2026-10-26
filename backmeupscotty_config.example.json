@@ -1,0 +1,16 @@
+{
+  "theme": "ZX Spectrum",
+  "source_folders": [],
+  "destination_folder": "",
+  "backup_mode": "incremental",
+  "compare_criteria": "both",
+  "worker_threads": 8,
+  "sound_effects": false,
+  "minimize_to_tray_on_close": true,
+  "schedule_enabled": false,
+  "schedule_type": "interval",
+  "interval_minutes": 60,
+  "daily_time": "02:00",
+  "scheduled_backup_mode": "incremental",
+  "last_scheduled_run": ""
+}
