@@ -17,6 +17,7 @@ from PIL import Image, ImageTk
 from src.themes import THEMES, create_tray_icon_rgba, register_embedded_fonts
 from src.backup_engine import BackupEngine, BackupStats
 from src.scheduler import AppConfig, BackupScheduler
+from src.version import APP_VERSION
 from src.win_taskbar import SystemTrayIcon, TaskbarProgressOverlay
 
 
@@ -281,18 +282,19 @@ class BackMeUpScottyApp:
         self._last_tray_update = 0.0
         self._schedule_dialog: ScheduleDialog | None = None
 
-        # Set Windows AppUserModelID so our custom icon & taskbar progress bar bind properly
+        # Windows also displays this AppUserModelID as the notification app name.
+        # Keep it user-facing rather than exposing an internal product identifier.
         if os.name == "nt":
             try:
                 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-                    "RetroSoft.BackMeUpScotty.8BitBackup.1"
+                    "BackMeUpScotty"
                 )
             except Exception:
                 pass
 
         self.taskbar_overlay = TaskbarProgressOverlay() if os.name == "nt" else None
 
-        self.root.title("BackMeUpScotty // Retro Style Turbo Backup System")
+        self.root.title(f"BackMeUpScotty v{APP_VERSION} // Retro Style Turbo Backup System")
         # The computer-icon theme selector needs more horizontal room than the
         # original text-only controls.
         self.root.geometry("1120x1030")
@@ -372,6 +374,10 @@ class BackMeUpScottyApp:
             "ZX Spectrum": "8bitZXSpectrum.png",
             "Commodore 64": "8bitC64.png",
         }
+        selector_labels = {
+            "ZX Spectrum": "SPECCY",
+            "Commodore 64": "C64",
+        }
         for t_name in ("ZX Spectrum", "Commodore 64"):
             try:
                 asset_path = os.path.join(
@@ -392,7 +398,7 @@ class BackMeUpScottyApp:
             self.theme_selector_icons[t_name] = ImageTk.PhotoImage(icon_image)
             btn = tk.Button(
                 self.theme_bar,
-                text=t_name.upper(),
+                text=selector_labels[t_name],
                 image=self.theme_selector_icons[t_name],
                 compound=tk.LEFT,
                 command=lambda n=t_name: self.apply_theme(n),
@@ -786,7 +792,7 @@ class BackMeUpScottyApp:
         )
         self.top_bar.configure(bg=t["paper"])
         self.banner_label.configure(
-            text=f"{t['boot_banner']}",
+            text=f"{t['boot_banner']}  //  BACKMEUPSCOTTY v{APP_VERSION}",
             font=f_banner,
             bg=t["paper"],
             fg=t["ink"],

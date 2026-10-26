@@ -1,0 +1,46 @@
+name: Bug report
+description: Report behavior that differs from the documented or expected result.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Do not include passwords, backup contents,
+        or personally identifying folder paths.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected result.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Choose ...
+        3. Start ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version or commit
+      placeholder: e.g. v1.0.0 or a1b2c3d
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: e.g. Windows 11 23H2
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error text, screenshots, or additional context
+      description: Redact any private paths or data before attaching.

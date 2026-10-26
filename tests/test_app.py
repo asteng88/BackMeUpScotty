@@ -113,7 +113,7 @@ def test_ui_and_themes():
     app = BackMeUpScottyApp(root, start_minimized=False)
 
     # Cycle through both themes and render progress deck
-    for t_name in ("ZX Spectrum", "C64"):
+    for t_name in ("ZX Spectrum", "Commodore 64"):
         app.apply_theme(t_name)
         root.update()
 

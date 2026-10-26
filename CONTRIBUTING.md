@@ -11,21 +11,19 @@ Thanks for helping improve BackMeUpScotty.
 ## Development setup
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-build.txt
+uv sync
 ```
 
 Run the non-GUI checks with:
 
 ```powershell
-python -c "import sys; sys.path.insert(0, 'tests'); import test_app; test_app.test_backup_engine(); test_app.test_backup_engine_allows_different_drives()"
+uv run python -c "import sys; sys.path.insert(0, 'tests'); import test_app; test_app.test_backup_engine(); test_app.test_backup_engine_allows_different_drives()"
 ```
 
 Run the complete suite from an interactive Windows desktop session because it creates a temporary Tkinter window:
 
 ```powershell
-python tests\test_app.py
+uv run python tests\test_app.py
 ```
 
 ## Pull requests

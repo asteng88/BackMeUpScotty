@@ -1,0 +1,20 @@
+[project]
+name = "backmeupscotty"
+version = "0.2.0"
+description = "Windows 8-bit themed folder backup application"
+readme = "README.md"
+authors = [
+    { name = "asteng88", email = "asteng88@msn.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pillow>=10",
+]
+
+[dependency-groups]
+build = [
+    "pyinstaller>=6.0",
+]
+
+[tool.uv]
+package = false

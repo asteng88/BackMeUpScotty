@@ -39,10 +39,8 @@ A fast, low-memory folder backup application with switchable **ZX Spectrum 48K**
 ## Run from Source
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-build.txt
-python main.py
+uv sync
+uv run python main.py
 ```
 
 On first launch, the app creates `backmeupscotty_config.json` in the project
@@ -54,20 +52,24 @@ manually.
 ## Run the Packaged App
 
 - **Double-click the compiled executable**:
-  - `BackMeUpScotty.exe` is a self-contained Windows application. Copy that one file to another Windows PC; Python and `main.py` are not required there. Pass `--minimized` to start directly in the taskbar tray.
+  - `dist\BackMeUpScotty.exe` is a self-contained Windows application. Copy that one file to another Windows PC; Python and `main.py` are not required there. Pass `--minimized` to start directly in the taskbar tray.
 
 ## Build a Release Executable
 
-  ```powershell
-  python -m pip install -r requirements-build.txt
-  python build_exe.py
-  ```
-  The build requires Windows and creates a one-file executable with PyInstaller. Application settings on a recipient's PC are saved under `%APPDATA%\BackMeUpScotty`.
+Use PyInstaller through UV's isolated build dependency group:
+
+```powershell
+uv run --group build pyinstaller --noconfirm --clean --onefile --windowed --name BackMeUpScotty --icon assets\app_icon.ico --add-data "assets;assets" --add-data "VERSION;." --distpath dist --workpath build main.py
+```
+
+The distributable is `dist\BackMeUpScotty.exe`. The build requires Windows.
+Application settings on a recipient's PC are saved under
+`%APPDATA%\BackMeUpScotty`.
 
 ## Test
 
 ```powershell
-python tests\test_app.py
+uv run python tests\test_app.py
 ```
 
 The test suite opens a temporary Tkinter window, so run it from an interactive
@@ -78,6 +80,9 @@ Windows desktop session.
 Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for
 development, test, and pull-request guidance. Report potential security issues
 privately as described in [SECURITY.md](SECURITY.md).
+
+Project participants are expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+For general help and issue-reporting guidance, see [SUPPORT.md](SUPPORT.md).
 
 ## License
 
